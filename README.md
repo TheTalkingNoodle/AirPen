@@ -25,7 +25,8 @@ Download/Clone this repository in any folder and run.
 
 $ python main.py
 
-a. Show any object with the following color in front of the webcam to detect object. The color can be changed by editing HSV values in main.py
+a. Show any object with the following color in front of the webcam to detect object. The color can be changed by editing HSV values in main.py.
+
 ![alt text](https://raw.githubusercontent.com/TheTalkingNoodle/AirPen/master/pink.jpg)
 
 b. Once the object is detected, a whiteboard will be shown with a pen cursor controlled by the object.
