@@ -77,7 +77,7 @@ decoderType = DecoderType.BeamSearch
 #decoderType = DecoderType.BestPath
 model = Model(open(FilePaths.fnCharList).read(), decoderType, mustRestore=True)
 
-### HSV Values for the specific color to be segmented i.e. Green in this case
+### HSV Values for the specific color to be segmented i.e. Pink in this case
 lower_HSV=      [133, 0, 173]
 higher_HSV=     [255, 156, 255]
 
