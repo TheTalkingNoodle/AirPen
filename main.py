@@ -223,7 +223,7 @@ while(True):
             f = final[int(final.shape[0]/2)-64:int(final.shape[0]/2)+64,int(final.shape[1]/2)-256:int(final.shape[1]/2)+256]
 
             ### If you want to display full uncropped whiteboard, uncomment this line
-            f = final
+            #f = final
 
             cv2.imshow("white board",f)
 
