@@ -8,7 +8,6 @@ from DataLoader import DataLoader, Batch
 from SamplePreprocessor import preprocess
 from gtts import gTTS
 
-
 ################################## Set Webcam
 def set_cam(vino):
     video_path=vino
@@ -17,26 +16,7 @@ def set_cam(vino):
     #cap.set(4, 1080)
     set_cam.cap=cap
 
-############################## Choose Pixel
-def click_and_crop(event, x, y, flags, param):
-
-    global refPt, cropping
-
-    if event == cv2.EVENT_LBUTTONDOWN:
-        refPt = [(x, y)]
-        cropping = True
-        #print "Top Left", refPt[0]
-        if refPt:
-            print ("HSV")
-            print (hsv[refPt[0][1],refPt[0][0]])
-            
-            print ("BGR")
-            print (frame[refPt[0][1],refPt[0][0]])
-
-cv2.namedWindow("frame")
-cv2.setMouseCallback("frame", click_and_crop)
-##############################
-
+################################## Fill Holes in Image
 def imfill(im_in):
     th, im_th = cv2.threshold(im_in, 220, 255, cv2.THRESH_BINARY)
 
@@ -59,6 +39,7 @@ def imfill(im_in):
 
     return im_out
 
+################################## Object Tracker
 def tracker_func(frame):
 
     timer = cv2.getTickCount()
@@ -86,11 +67,9 @@ def tracker_func(frame):
 
     return frame, bbox, fail_flag
 
-vino = 1
+vino = 1 #Webcam ID
 set_cam(vino)
 cap = set_cam.cap
-width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
 class FilePaths:
     fnCharList = '/home/asad/Documents/Air-Pen/SimpleHTR/model/charList.txt'
@@ -98,17 +77,22 @@ decoderType = DecoderType.BeamSearch
 #decoderType = DecoderType.BestPath
 model = Model(open(FilePaths.fnCharList).read(), decoderType, mustRestore=True)
 
+### HSV Values for the specific color to be segmented i.e. Green in this case
 lower_HSV=      [133, 0, 173]
 higher_HSV=     [255, 156, 255]
+
+### Width and Height of whiteboard to write
 width = int(480*2)
 height = int(360*2)
 white_board = np.ones((height, width, 3), np.uint8) * 255
+pen_color =[0,0,255] #Red (you can set to anything)
+
+### Flags
 tracker_flag = 0
 fail_flag = 0
 pen = 0
 bbox_prev = []
 final = []
-pen_color =[0,0,255]
 
 while(True):
 
@@ -176,8 +160,11 @@ while(True):
 
         key = cv2.waitKey(1) & 0xFF
 
+        ### Quit
         if key == ord("q"):
             break
+
+        ### Start Tracking
         elif key == ord('s'):
             if tracker_flag ==0:
                 print "Tracking Started."
@@ -185,17 +172,26 @@ while(True):
                 ok = tracker.init(frame, bbox)
                 tracker_flag  = 1
 
+        ### Pen ON (You can write now)
         elif key == ord('w'):
             pen = 1
             pen_color = [0,255,0]
+
+        ### Pen OFF (You can not write now)
         elif key == ord('e'):
             pen = 0
             pen_color = [0,0,255]
             bbox_prev= []
+
+        ### Reset tracker (Press 's' again to start tracking again)
         elif key == ord('r'):
             tracker_flag = 0
+
+        ### Clear WhiteBoard
         elif key == ord('c'):
             white_board = np.ones((height, width, 3), np.uint8) * 255
+
+        ### Process writing and convert into audio
         elif key == ord('a'):
 
             img = white_board[int(white_board.shape[0]/2)-64:int(white_board.shape[0]/2)+64,int(white_board.shape[1]/2)-256:int(white_board.shape[1]/2)+256]
@@ -224,7 +220,6 @@ while(True):
 
         if final != []:
             f = final[int(final.shape[0]/2)-64:int(final.shape[0]/2)+64,int(final.shape[1]/2)-256:int(final.shape[1]/2)+256]
-
             cv2.imshow("white board",f)
 
         #cv2.imshow("mask",mask_HSV)
