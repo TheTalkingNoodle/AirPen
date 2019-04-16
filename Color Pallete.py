@@ -52,8 +52,6 @@ cv2.createTrackbar('highV', 'image', hsv_max[2], 255, nothing)
 
 frame_no=0
 n=0
-wb_flag =0 #white balance flag
-calibrate_0=0
 
 while(True):
     if n==0 and vino!=10:
@@ -64,7 +62,6 @@ while(True):
 
     # grab the frame
     key = cv2.waitKey(1) & 0xFF
-    # if the 'c' key is pressed, break from the loop
 
     #frame=cv2.resize(frame,(960,720))
     hsv = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)

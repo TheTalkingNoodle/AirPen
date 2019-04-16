@@ -40,3 +40,5 @@ Options:
 
 Sample Image:
 ![alt text](https://raw.githubusercontent.com/TheTalkingNoodle/AirPen/master/sample.png)
+
+Note: If you want to use a custom colored object, run 'Color pallete.py' to adjust slider values in order to get the appropriate HSV values for your object.
