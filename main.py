@@ -219,7 +219,12 @@ while(True):
         cv2.imshow("frame",final_frame)
 
         if final != []:
+
             f = final[int(final.shape[0]/2)-64:int(final.shape[0]/2)+64,int(final.shape[1]/2)-256:int(final.shape[1]/2)+256]
+
+            ### If you want to display full uncropped whiteboard, uncomment this line
+            f = final
+
             cv2.imshow("white board",f)
 
         #cv2.imshow("mask",mask_HSV)
