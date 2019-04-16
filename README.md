@@ -37,3 +37,6 @@ Options:
 3. Press 'e' to stop writing or doodling (pen shows RED pointer on screen)
 4. Press 'r' to reset the object tracker (in case of mistracking). Press 's' again to start tracking again.
 4. Press 'a' to convert writing to speech.
+
+Sample Image:
+![alt text](https://raw.githubusercontent.com/TheTalkingNoodle/AirPen/master/sample.png)
