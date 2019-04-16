@@ -4,6 +4,8 @@
 
 Convert any object into a pen to digitize your writing or doodles. Also converts text to speech using reference material from https://github.com/githubharald/SimpleHTR .
 
+$ python main.py
+
 Options:
 1. Press 's' to start tracking object to work as pen.
 2. Press 'w' to start writing or doodling (pen shows GREEN pointer on screen)
